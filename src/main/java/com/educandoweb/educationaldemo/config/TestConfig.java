@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.educandoweb.educationaldemo.entities.Category;
 import com.educandoweb.educationaldemo.entities.Order;
+import com.educandoweb.educationaldemo.entities.OrderItem;
 import com.educandoweb.educationaldemo.entities.Product;
 import com.educandoweb.educationaldemo.entities.User;
 import com.educandoweb.educationaldemo.entities.enums.OrderStatus;
 import com.educandoweb.educationaldemo.repositories.CategoryRepository;
+import com.educandoweb.educationaldemo.repositories.OrderItemRepository;
 import com.educandoweb.educationaldemo.repositories.OrderRepository;
 import com.educandoweb.educationaldemo.repositories.ProductRepository;
 import com.educandoweb.educationaldemo.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -76,6 +81,13 @@ public class TestConfig implements CommandLineRunner {
 		
 		userRepository.saveAll(Arrays.asList(user1, user2));
 		orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+		
+		OrderItem orderItem1 = new OrderItem(order1, p1, 2, p1.getPrice());
+		OrderItem orderItem2 = new OrderItem(order1, p3, 1, p3.getPrice());
+		OrderItem orderItem3 = new OrderItem(order2, p3, 2, p3.getPrice());
+		OrderItem orderItem4 = new OrderItem(order3, p5, 2, p5.getPrice()); 
+		
+		orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
 	}
 	
 }
